@@ -9,9 +9,10 @@ import { NgxMaskModule } from 'ngx-mask';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CadastroComponent],
+  declarations: [AppComponent, LoginComponent, CadastroComponent, HomepageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

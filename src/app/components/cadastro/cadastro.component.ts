@@ -1,7 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RequisicoesService } from '../../service/requisicoes.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -9,76 +8,6 @@ import { RequisicoesService } from '../../service/requisicoes.service';
   styleUrls: ['./cadastro.component.css'],
 })
 export class CadastroComponent implements OnInit {
-  dadosPessoaisForm!: FormGroup;
-  enderecoForm!: FormGroup;
-  constructor(
-    private formBuilder: FormBuilder,
-    private requisicoesService: RequisicoesService,
-    private router: Router
-  ) {}
-  ngOnInit(): void {
-    this.inicializarForms();
-  }
-
-  inicializarForms(): void {
-    this.dadosPessoaisForm = this.formBuilder.group({
-      cnpj: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      faturamento: ['', Validators.required],
-      percentualParticipacao: ['', Validators.required],
-      nome: ['', Validators.required],
-      telefone: ['', Validators.required],
-      cpf: ['', Validators.required],
-      senha: ['', Validators.required],
-    });
-
-    this.enderecoForm = this.formBuilder.group({
-      logradouro: ['', Validators.required],
-      cidade: ['', Validators.required],
-      complemento: [''],
-      bairro: ['', Validators.required],
-      cep: ['', Validators.required],
-      pais: ['', Validators.required],
-      numero: ['', Validators.required],
-      estado: ['', [Validators.required, Validators.maxLength(2)]],
-    });
-  }
-  criarConta(): void {
-    if (this.dadosPessoaisForm && this.enderecoForm) {
-      if (this.dadosPessoaisForm.valid && this.enderecoForm.valid) {
-        const dados = {
-          cnpj: this.dadosPessoaisForm.get('cnpj')?.value,
-          email: this.dadosPessoaisForm.get('email')?.value,
-          faturamento: this.dadosPessoaisForm.get('faturamento')?.value,
-          percentualParticipacao: this.dadosPessoaisForm.get(
-            'percentualParticipacao'
-          )?.value,
-          nome: this.dadosPessoaisForm.get('nome')?.value,
-          telefone: this.dadosPessoaisForm.get('telefone')?.value,
-          cpf: this.dadosPessoaisForm.get('cpf')?.value,
-          senha: this.dadosPessoaisForm.get('senha')?.value,
-          endereco: this.enderecoForm.value,
-        };
-
-        this.requisicoesService.criarConta(dados).subscribe(
-          (response) => {
-            if (response.status === 201) {
-              console.log('Conta criada com sucesso!');
-              this.router.navigate(['/login']);
-            }
-          },
-          (error) => {
-            console.error('Erro ao criar conta:', error);
-          }
-        );
-      } else {
-        // Exiba mensagens de erro ou trate de outra forma
-      }
-    } else {
-      console.error('Formulários não inicializados corretamente.');
-    }
-  }
-
   seuModeloPercentual: string = '';
   seuModeloCpf: string = '';
   seuModeloTelefone: string = '';
@@ -113,6 +42,69 @@ export class CadastroComponent implements OnInit {
     'SE',
     'TO',
   ];
+
+  constructor(private apiService: ApiService, private router: Router) {}
+
+  ngOnInit(): void {}
+
+  criarConta(): void {
+    const cnpj = (document.getElementById('cnpj') as HTMLInputElement).value;
+    const faturamento = (
+      document.getElementById('faturamento') as HTMLInputElement
+    ).value;
+    const nome = (document.getElementById('nome') as HTMLInputElement).value;
+    const cpf = this.seuModeloCpf;
+    const logradouro = (
+      document.getElementById('logradouro') as HTMLInputElement
+    ).value;
+    const numero = (document.getElementById('numero') as HTMLInputElement)
+      .value;
+    const complemento = (
+      document.getElementById('complemento') as HTMLInputElement
+    ).value;
+    const bairro = (document.getElementById('bairro') as HTMLInputElement)
+      .value;
+    const cidade = (document.getElementById('cidade') as HTMLInputElement)
+      .value;
+    const estado = this.seuModeloEstado;
+    const cep = this.seuModeloCep;
+    const pais = (document.getElementById('pais') as HTMLInputElement).value;
+    const email = (document.getElementById('email') as HTMLInputElement).value;
+    const percentual = this.seuModeloPercentual;
+    const telefone = this.seuModeloTelefone;
+    const senha = (document.getElementById('senha') as HTMLInputElement).value;
+    const requestBody = {
+      cnpj: cnpj,
+      endereco: {
+        logradouro: logradouro,
+        numero: numero,
+        complemento: complemento,
+        bairro: bairro,
+        cidade: cidade,
+        estado: estado,
+        cep: cep,
+        pais: pais,
+      },
+      faturamentoMensal: parseFloat(
+        faturamento.replace('R$ ', '').replace('.', '').replace(',', '.')
+      ),
+      socios: [
+        {
+          nome: nome,
+          cpf: cpf,
+          email: email,
+          telefone: telefone,
+          percentualParticipacao: parseFloat(percentual),
+        },
+      ],
+      senha: senha,
+    };
+
+    this.apiService.cadastrar(requestBody).subscribe((response) => {
+      this.router.navigate(['/login']);
+    });
+  }
+
   validarPercentual(event: any): void {
     const valorDigitado = parseInt(event.target.value, 10);
 
@@ -120,6 +112,7 @@ export class CadastroComponent implements OnInit {
       this.seuModeloPercentual = '100';
     }
   }
+
   validarEstado(event: any): void {
     let valorDigitado = event.target.value.toUpperCase();
 
