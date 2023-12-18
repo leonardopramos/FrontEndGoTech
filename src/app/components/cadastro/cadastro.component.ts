@@ -126,4 +126,7 @@ export class CadastroComponent implements OnInit {
       this.seuModeloEstado = '';
     }
   }
+  sair() {
+    this.router.navigate(['/login']);
+  }
 }

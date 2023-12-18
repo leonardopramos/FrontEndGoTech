@@ -18,8 +18,9 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/cadastro']);
   }
   login() {
+    localStorage.setItem('cnpj', this.cnpj);
     this.apiService.login(this.cnpj, this.senha).subscribe(
-      (response ) => {
+      (response) => {
         if (response === 'Login bem sucedido.') {
           console.log('Login bem-sucedido!');
           this.router.navigate(['/homepage']);

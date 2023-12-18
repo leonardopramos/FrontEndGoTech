@@ -1,1 +1,18 @@
-<p>homepage works!</p>
+<div class="logo-container">
+  <img src="../../../assets/imagens/logo.jpeg" alt="Logo" class="logo-image" />
+  <div class="welcome-title">
+    <h1>Bem-vindo, {{ nomeUsuario }}</h1>
+  </div>
+  <button
+    class="rounded-button"
+    (click)="mostrarStatus ? recolherTexto() : acompanharSolicitacao()"
+  >
+    Acompanhar solicitação de abertura de conta
+  </button>
+  <div class="status-container">
+    <p class="status-text" *ngIf="mostrarStatus">
+      Seu status atual é: <br />{{ status }}
+    </p>
+  </div>
+  <button class="rounded-button" (click)="voltarParaLogin()">Sair</button>
+</div>

@@ -17,4 +17,12 @@ export class ApiService {
     const params = { cnpj, senha };
     return this.http.get(url, { params, responseType: 'text' });
   }
+  acompanharSolicitacao(cnpj: string): Observable<string> {
+    const url = `${this.apiUrl}solicitacao/status/${cnpj}`;
+    return this.http.get(url, { responseType: 'text' });
+  }
+  retornaNome(cnpj: string): Observable<string> {
+    const url = `${this.apiUrl}alpha/nomeCliente/${cnpj}`;
+    return this.http.get(url, { responseType: 'text' });
+  }
 }
