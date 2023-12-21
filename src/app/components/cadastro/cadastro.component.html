@@ -31,27 +31,6 @@
             />
           </div>
           <div class="form-group">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" required />
-          </div>
-          <div class="form-group">
-            <label for="cpf">CPF</label>
-            <input
-              type="text"
-              id="cpf"
-              name="cpf"
-              required
-              mask="000.000.000-00"
-              [(ngModel)]="seuModeloCpf"
-            />
-          </div>
-        </div>
-        <div class="form-column">
-          <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" required />
-          </div>
-          <div class="form-group">
             <label for="percentual">Percentual de Participação</label>
             <input
               type="text"
@@ -60,10 +39,32 @@
               required
               mask="099"
               [suffix]="'%'"
-              [(ngModel)]="seuModeloPercentual"
+              [(ngModel)]="percentualModel"
               (input)="validarPercentual($event)"
             />
           </div>
+          <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" required />
+          </div>
+        </div>
+        <div class="form-column">
+          <div class="form-group">
+            <label for="cpf">CPF</label>
+            <input
+              type="text"
+              id="cpf"
+              name="cpf"
+              required
+              mask="000.000.000-00"
+              [(ngModel)]="cpfModel"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
           <div class="form-group">
             <label for="telefone">Telefone:</label>
             <input
@@ -72,7 +73,7 @@
               name="telefone"
               required
               mask="(00) 00000-0009"
-              [(ngModel)]="seuModeloTelefone"
+              [(ngModel)]="phoneModel"
             />
           </div>
           <div class="form-group">
@@ -88,24 +89,6 @@
       <div class="form-columns">
         <div class="form-column">
           <div class="form-group">
-            <label for="logradouro">Logradouro</label>
-            <input type="text" id="logradouro" name="logradouro" required />
-          </div>
-          <div class="form-group">
-            <label for="cidade">Cidade</label>
-            <input type="text" id="cidade" name="cidade" required />
-          </div>
-          <div class="form-group">
-            <label for="complemento">Complemento</label>
-            <input type="text" id="complemento" name="complemento" />
-          </div>
-          <div class="form-group">
-            <label for="bairro">Bairro</label>
-            <input type="text" id="bairro" name="bairro" required />
-          </div>
-        </div>
-        <div class="form-column">
-          <div class="form-group">
             <label for="cep">CEP</label>
             <input
               type="text"
@@ -113,16 +96,30 @@
               name="cep"
               required
               mask="00000-000"
-              [(ngModel)]="seuModeloCep"
+              [(ngModel)]="cepModel"
+              (input)="
+                cepModel.length === 8 && preencherEnderecoPorCep(cepModel)
+              "
             />
           </div>
           <div class="form-group">
-            <label for="pais">País</label>
-            <input type="text" id="pais" name="pais" required />
+            <label for="numero">Número</label>
+            <input
+              type="text"
+              id="numero"
+              name="numero"
+              required
+            />
           </div>
           <div class="form-group">
-            <label for="numero">Número</label>
-            <input type="text" id="numero" name="numero" required />
+            <label for="bairro">Bairro</label>
+            <input
+              type="text"
+              id="bairro"
+              name="bairro"
+              required
+              [(ngModel)]="neighborhoodModel"
+            />
           </div>
           <div class="form-group">
             <label for="estado">Estado (UF)</label>
@@ -132,8 +129,49 @@
               name="estado"
               required
               maxlength="2"
-              [(ngModel)]="seuModeloEstado"
+              [(ngModel)]="stateModel"
               (input)="validarEstado($event)"
+            />
+          </div>
+        </div>
+        <div class="form-column">
+          <div class="form-group">
+            <label for="logradouro">Logradouro</label>
+            <input
+              type="text"
+              id="logradouro"
+              name="logradouro"
+              required
+              [(ngModel)]="logradouroModel"
+            />
+          </div>
+          <div class="form-group">
+            <label for="complemento">Complemento</label>
+            <input
+              type="text"
+              id="complemento"
+              name="complemento"
+              [(ngModel)]="complementModel"
+            />
+          </div>
+          <div class="form-group">
+            <label for="cidade">Cidade</label>
+            <input
+              type="text"
+              id="cidade"
+              name="cidade"
+              required
+              [(ngModel)]="cityModel"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="pais">País</label>
+            <input
+              type="text"
+              id="pais"
+              name="pais"
+              required
             />
           </div>
         </div>
@@ -146,8 +184,6 @@
     </button>
   </div>
   <div class="sair-container">
-    <button type="button" class="sair-button" (click)="sair()">
-      Sair
-    </button>
+    <button type="button" class="sair-button" (click)="sair()">Sair</button>
   </div>
 </div>

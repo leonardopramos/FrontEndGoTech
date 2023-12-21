@@ -1,0 +1,26 @@
+<div class="logo-container">
+  <img src="../../../assets/imagens/logo.jpeg" alt="Logo" class="logo-image" />
+  <div class="admin-title">
+    <h1>Funções de administrador</h1>
+  </div>
+  <div class="form-group">
+    <label for="cnpj" class="cnpj">CNPJ</label>
+    <input
+      type="text"
+      mask="00.000.000/0000-00"
+      id="cnpj"
+      name="cnpj"
+      required
+      [(ngModel)]="cnpjModel"
+      (input)="setCnpj(cnpjModel)"
+    />
+  </div>
+  <button class="rounded-button" (click)="aprovaSolicitacao()">
+    Aprovar solicitação
+  </button>
+  <button class="rounded-button" (click)="cancelaSolicitacao()">
+    Cancelar solicitação
+  </button>
+  <button class="rounded-button">Adicionar Sócio</button>
+  <button class="exit-button" (click)="voltarParaLogin()">Sair</button>
+</div>

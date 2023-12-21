@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { ViacepService } from 'src/app/services/viacep.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -8,42 +9,21 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./cadastro.component.css'],
 })
 export class CadastroComponent implements OnInit {
-  seuModeloPercentual: string = '';
-  seuModeloCpf: string = '';
-  seuModeloTelefone: string = '';
-  seuModeloCep: string = '';
-  seuModeloEstado: string = '';
-  ufsValidos: string[] = [
-    'AC',
-    'AL',
-    'AP',
-    'AM',
-    'BA',
-    'CE',
-    'DF',
-    'ES',
-    'GO',
-    'MA',
-    'MT',
-    'MS',
-    'MG',
-    'PA',
-    'PB',
-    'PR',
-    'PE',
-    'PI',
-    'RJ',
-    'RN',
-    'RS',
-    'RO',
-    'RR',
-    'SC',
-    'SP',
-    'SE',
-    'TO',
-  ];
+  percentualModel: string = '';
+  cpfModel: string = '';
+  phoneModel: string = '';
+  cepModel: string = '';
+  stateModel: string = '';
+  logradouroModel: string = '';
+  neighborhoodModel: string = '';
+  cityModel: string = '';
+  complementModel: string = '';
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private viaCepService: ViacepService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -53,25 +33,20 @@ export class CadastroComponent implements OnInit {
       document.getElementById('faturamento') as HTMLInputElement
     ).value;
     const nome = (document.getElementById('nome') as HTMLInputElement).value;
-    const cpf = this.seuModeloCpf;
-    const logradouro = (
-      document.getElementById('logradouro') as HTMLInputElement
-    ).value;
+    const cpf = this.cpfModel;
+    const logradouro = this.logradouroModel;
     const numero = (document.getElementById('numero') as HTMLInputElement)
       .value;
-    const complemento = (
-      document.getElementById('complemento') as HTMLInputElement
-    ).value;
-    const bairro = (document.getElementById('bairro') as HTMLInputElement)
-      .value;
-    const cidade = (document.getElementById('cidade') as HTMLInputElement)
-      .value;
-    const estado = this.seuModeloEstado;
-    const cep = this.seuModeloCep;
+    const complemento = this.complementModel;
+    const bairro = this.neighborhoodModel;
+
+    const cidade = this.cityModel;
+    const estado = this.stateModel;
+    const cep = this.cepModel;
     const pais = (document.getElementById('pais') as HTMLInputElement).value;
     const email = (document.getElementById('email') as HTMLInputElement).value;
-    const percentual = this.seuModeloPercentual;
-    const telefone = this.seuModeloTelefone;
+    const percentual = this.percentualModel;
+    const telefone = this.phoneModel;
     const senha = (document.getElementById('senha') as HTMLInputElement).value;
     const requestBody = {
       cnpj: cnpj,
@@ -104,12 +79,25 @@ export class CadastroComponent implements OnInit {
       this.router.navigate(['/login']);
     });
   }
-
+  preencherEnderecoPorCep(cep: string): void {
+    if (cep.length === 8) {
+      this.viaCepService.getEnderecoByCep(cep).subscribe((endereco: any) => {
+        if (endereco) {
+          this.cepModel = endereco.cep;
+          this.logradouroModel = endereco.logradouro;
+          this.neighborhoodModel = endereco.bairro;
+          this.cityModel = endereco.localidade;
+          this.stateModel = endereco.uf;
+          this.complementModel = endereco.complemento;
+        }
+      });
+    }
+  }
   validarPercentual(event: any): void {
     const valorDigitado = parseInt(event.target.value, 10);
 
     if (valorDigitado > 100) {
-      this.seuModeloPercentual = '100';
+      this.percentualModel = '100';
     }
   }
 
@@ -118,12 +106,6 @@ export class CadastroComponent implements OnInit {
 
     if (valorDigitado.length > 2) {
       valorDigitado = valorDigitado.slice(0, 2);
-    }
-
-    if (this.ufsValidos.includes(valorDigitado)) {
-      this.seuModeloEstado = valorDigitado;
-    } else {
-      this.seuModeloEstado = '';
     }
   }
   sair() {

@@ -25,4 +25,12 @@ export class ApiService {
     const url = `${this.apiUrl}alpha/nomeCliente/${cnpj}`;
     return this.http.get(url, { responseType: 'text' });
   }
+  aprovaSolicitacao(cnpj: string): Observable<any> {
+    const url = `${this.apiUrl}solicitacao/aprova/${cnpj}`;
+    return this.http.get(url, { responseType: 'text' });
+  }
+  cancelaSolicitacao(cnpj: string): Observable<any> {
+    const url = `${this.apiUrl}solicitacao/cancela/${cnpj}`;
+    return this.http.get(url, { responseType: 'text' });
+  }
 }
