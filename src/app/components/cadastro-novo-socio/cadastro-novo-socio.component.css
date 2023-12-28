@@ -12,34 +12,58 @@
   height: auto;
 }
 
-.admin-title {
+.add-new-partner-title {
   font-weight: 700;
   margin-top: 10px;
-}
-.rounded-button {
-  padding: 5px;
-  background-color: #1b4776;
-  color: #d9d9d9;
-  border: 2px solid #1b4776;
-  border-radius: 10px;
-  font-size: 20px;
-  width: 250px;
-  margin-top: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
+  color: #1b4776;
+  text-align: center;
 }
 
-.rounded-button:hover {
-  background-color: #0d2b4e;
-  border-color: #0d2b4e;
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
+
+#account-form,
+#address-form {
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
 }
 
+.form-columns {
+  display: flex;
+  gap: 20px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.create-account-button {
+  padding: 5px;
+  background-color: #1b4776;
+  color: #d9d9d9;
+  border: 2px solid #1b4776;
+  border-radius: 10px;
+  font-size: 20px;
+  width: 170px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.create-account-button:hover {
+  background-color: #0d2b4e;
+  border-color: #0d2b4e;
+}
 .form-group input {
   border: 2px solid #1b4776;
   border-radius: 5px;
@@ -54,48 +78,24 @@
   border-color: #0d2b4e;
   box-shadow: 0 0 5px rgba(29, 113, 171, 0.5);
 }
-.cnpj {
-  margin-top: 15px;
-  text-align: center;
-}
-.exit-button {
-  padding: 5px;
+.sair-button {
+  padding: 10px;
   background-color: #1b4776;
   color: #d9d9d9;
   border: 2px solid #1b4776;
   border-radius: 10px;
   font-size: 20px;
-  width: 100px;
+  width: 80px;
   margin-top: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
 }
-.exit-button:hover {
+
+.sair-button:hover {
   background-color: #0d2b4e;
   border-color: #0d2b4e;
-}
-.list-title {
-  font-size: 20px;
-}
-
-.lista-contas {
-  background-color: #1b4776;
-  padding: 10px;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.lista-contas ul {
-  list-style-type: none;
-  padding: 0;
-  max-width: 370px;
-}
-
-.lista-contas li {
-  margin-bottom: 8px;
-}
-
-.lista-contas * {
-  background: #1b4776;
 }

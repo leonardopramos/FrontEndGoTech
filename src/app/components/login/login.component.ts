@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class LoginComponent implements OnInit {
   cnpj: string = '';
   senha: string = '';
+  usuarios: any[] = [];
 
   constructor(private router: Router, private apiService: ApiService) {}
 
@@ -27,13 +28,18 @@ export class LoginComponent implements OnInit {
       (response) => {
         if (response === 'Login bem sucedido.') {
           console.log('Login bem-sucedido!');
-          this.router.navigate(['/homepage']);
+          if (this.usuarios.length === 0) {
+            this.router.navigate(['/homepage']);
+            return;
+          }
+          this.router.navigate(['/user-selector']);
         } else {
           console.log('Credenciais inválidas');
           alert('Credenciais inválidas');
         }
       },
       (error) => {
+        alert('Credenciais inválidas');
         console.error('Erro ao fazer login', error);
       }
     );

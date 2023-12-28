@@ -1,7 +1,19 @@
 <div class="logo-container">
   <img src="../../../assets/imagens/logo.jpeg" alt="Logo" class="logo-image" />
+
   <div class="admin-title">
     <h1>Funções de administrador</h1>
+  </div>
+  <div class="lista-contas">
+    <h1 class="list-title">Contas Pessoa Jurídica disponíveis:</h1>
+    <ul>
+      <li *ngFor="let conta of contasPessoaJuridica">
+        {{ conta.cnpj }} -
+        <span *ngFor="let socio of conta.socios; let last = last">
+          {{ socio.nome }}{{ !last ? ", " : "" }}
+        </span>
+      </li>
+    </ul>
   </div>
   <div class="form-group">
     <label for="cnpj" class="cnpj">CNPJ</label>
@@ -21,6 +33,6 @@
   <button class="rounded-button" (click)="cancelaSolicitacao()">
     Cancelar solicitação
   </button>
-  <button class="rounded-button">Adicionar Sócio</button>
+  <button class="rounded-button" (click)="adicionarNovoSocio()">Adicionar Sócio</button>
   <button class="exit-button" (click)="voltarParaLogin()">Sair</button>
 </div>

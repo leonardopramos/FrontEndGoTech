@@ -16,17 +16,9 @@ export class HomepageComponent implements OnInit {
   constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
-    this.setNomeUsuario();
-  }
-  setNomeUsuario() {
-    const cnpj = localStorage.getItem('cnpj');
-
-    if (cnpj) {
-      this.apiService.retornaNome(cnpj).subscribe((nome: string) => {
-        this.nomeUsuario = nome;
-      });
-    } else {
-      console.error('CNPJ não encontrado no localStorage');
+    const usuarioSelecionado = localStorage.getItem('usuarioSelecionado');
+    if (usuarioSelecionado != null) {
+      this.nomeUsuario = usuarioSelecionado;
     }
   }
   acompanharSolicitacao() {

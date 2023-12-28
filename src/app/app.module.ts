@@ -11,9 +11,19 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { CadastroNovoSocioComponent } from './components/cadastro-novo-socio/CadastroNovoSocioComponent';
+import { UserSelectorComponent } from './components/user-selector/user-selector.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CadastroComponent, HomepageComponent, AdminComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    CadastroComponent,
+    HomepageComponent,
+    AdminComponent,
+    CadastroNovoSocioComponent,
+    UserSelectorComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
