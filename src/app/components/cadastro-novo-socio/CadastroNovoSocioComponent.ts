@@ -9,9 +9,6 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class CadastroNovoSocioComponent implements OnInit {
   cnpjModel: string = '';
-  nome: string = '';
-  cpf: string = '';
-  email: string = '';
   telefone: string = '';
   percentualParticipacao: number = 0;
   constructor(private router: Router, private apiService: ApiService) {}
@@ -34,10 +31,10 @@ export class CadastroNovoSocioComponent implements OnInit {
   adicionarSocio() {
     const cnpjSemFormatacao = this.cnpjModel.replace(/[./-]/g, '');
     const socioData = {
-      nome: this.nome,
-      cpf: this.cpf.replace(/\D/g, ''),
-      email: this.email,
-      telefone: this.telefone.replace(/\D/g, ''),
+      nome: (document.getElementById('nome') as HTMLInputElement).value,
+      cpf:(document.getElementById('cpf') as HTMLInputElement).value,
+      email: (document.getElementById('email') as HTMLInputElement).value,
+      telefone: (document.getElementById('telefone') as HTMLInputElement).value,
       percentualParticipacao: this.percentualParticipacao,
     };
     this.apiService

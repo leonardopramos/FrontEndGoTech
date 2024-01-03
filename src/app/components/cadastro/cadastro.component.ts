@@ -10,8 +10,6 @@ import { ViacepService } from 'src/app/services/viacep.service';
 })
 export class CadastroComponent implements OnInit {
   percentualModel: string = '';
-  cpfModel: string = '';
-  phoneModel: string = '';
   cepModel: string = '';
   stateModel: string = '';
   logradouroModel: string = '';
@@ -29,11 +27,13 @@ export class CadastroComponent implements OnInit {
 
   criarConta(): void {
     const cnpj = (document.getElementById('cnpj') as HTMLInputElement).value;
+    [];
     const faturamento = (
       document.getElementById('faturamento') as HTMLInputElement
     ).value;
     const nome = (document.getElementById('nome') as HTMLInputElement).value;
-    const cpf = this.cpfModel;
+    const cpf = (document.getElementById('cpf') as HTMLInputElement).value;
+    [];
     const logradouro = this.logradouroModel;
     const numero = (document.getElementById('numero') as HTMLInputElement)
       .value;
@@ -46,7 +46,8 @@ export class CadastroComponent implements OnInit {
     const pais = (document.getElementById('pais') as HTMLInputElement).value;
     const email = (document.getElementById('email') as HTMLInputElement).value;
     const percentual = this.percentualModel;
-    const telefone = this.phoneModel;
+    const telefone = (document.getElementById('telefone') as HTMLInputElement)
+      .value;
     const senha = (document.getElementById('senha') as HTMLInputElement).value;
     const requestBody = {
       cnpj: cnpj,

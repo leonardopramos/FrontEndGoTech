@@ -1,11 +1,10 @@
-.logo-container {
+.main {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   height: 100vh;
 }
-
 .logo-image {
   max-width: 100%;
   width: 260px;
@@ -34,6 +33,7 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
+  width: 270px;
 }
 
 .form-columns {

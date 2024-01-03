@@ -16,7 +16,7 @@ export class ApiService {
     );
   }
   cadastrar(dadosPessoais: any): Observable<any> {
-    const url = this.apiUrl + 'alpha/create/contapessoajuridica';
+    const url = this.apiUrl + 'alpha/create';
     return this.http.post(url, dadosPessoais);
   }
   login(cnpj: string, senha: string): Observable<any> {
