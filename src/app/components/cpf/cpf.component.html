@@ -1,0 +1,49 @@
+<div class="main">
+  <div class="logo-container">
+    <img
+      src="../../../assets/imagens/logo.jpeg"
+      alt="Logo"
+      class="logo-image"
+    />
+  </div>
+  <div class="cpf-title">
+    <h1>Este é o seu CPF?</h1>
+    <p class="cpf-content">{{ cpfFormatado }}</p>
+  </div>
+  <div class="options-container">
+    <div class="label-option">
+      <input
+        type="radio"
+        class="option-input"
+        name="opcao"
+        [(ngModel)]="opcao"
+        value="sim"
+      />
+      <span>Sim</span>
+    </div>
+
+    <div class="label-option">
+      <input
+        type="radio"
+        class="option-input"
+        name="opcao"
+        [(ngModel)]="opcao"
+        value="nao"
+      />
+      <span>Não</span>
+    </div>
+
+    <ng-container *ngIf="opcao === 'nao'">
+      <label for="cpfCorreto">Digite seu cpf correto:</label>
+      <input
+        type="text"
+        id="cpfCorretoInput"
+        class="input-new-cpf"
+        [(ngModel)]="cpfCorreto"
+        mask="000.000.000-00"
+      />
+    </ng-container>
+
+    <button class="button-next" (click)="proximoPasso()">Próximo</button>
+  </div>
+</div>

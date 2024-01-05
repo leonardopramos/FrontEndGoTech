@@ -1,0 +1,53 @@
+<div class="main">
+  <div class="logo-container">
+    <img
+      src="../../../assets/imagens/logo.jpeg"
+      alt="Logo"
+      class="logo-image"
+    />
+  </div>
+  <div class="data-title">
+    <h1>Esta é a data de abertura correta?</h1>
+    <p class="data-content">Data de Abertura: {{ dadosCnpj.abertura }}</p>
+
+    <div class="options-container">
+      <div class="label-option">
+        <input
+          type="radio"
+          class="option-input"
+          name="opcao"
+          [(ngModel)]="opcao"
+          value="sim"
+        />
+        <span>Sim</span>
+      </div>
+
+      <div class="label-option">
+        <input
+          type="radio"
+          class="option-input"
+          name="opcao"
+          [(ngModel)]="opcao"
+          value="nao"
+        />
+        <span>Não</span>
+      </div>
+
+      <ng-container *ngIf="opcao === 'nao'">
+        <label for="dataCorretaInput"
+          >Digite a data correta (DD/MM/AAAA):</label
+        >
+        <input
+          type="text"
+          id="dataCorretaInput"
+          class="input-new-date"
+          [(ngModel)]="dataCorretaManual"
+          (change)="validarDataManual()"
+          mask="00/00/0000"
+        />
+      </ng-container>
+
+      <button class="button-next" (click)="proximoPasso()">Próximo</button>
+    </div>
+  </div>
+</div>

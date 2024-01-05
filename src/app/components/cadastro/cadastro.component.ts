@@ -23,7 +23,9 @@ export class CadastroComponent implements OnInit {
     private viaCepService: ViacepService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   criarConta(): void {
     const cnpj = (document.getElementById('cnpj') as HTMLInputElement).value;

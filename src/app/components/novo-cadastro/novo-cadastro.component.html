@@ -1,0 +1,31 @@
+<div class="main">
+  <div class="logo-container">
+    <img
+      src="../../../assets/imagens/logo.jpeg"
+      alt="Logo"
+      class="logo-image"
+    />
+  </div>
+  <div class="cnpj-title">
+    <h1>Primeiro passo, nos informe o CNPJ da empresa</h1>
+  </div>
+  <div class="form-container">
+    <form class="cnpj-form">
+      <div class="form-group">
+        <label for="cnpj">CNPJ</label>
+        <input
+          type="text"
+          mask="00.000.000/0000-00"
+          id="cnpj"
+          name="cnpj"
+          required
+        />
+      </div>
+    </form>
+  </div>
+  <div class="next-container">
+    <button type="button" class="next-button" (click)="proximaTela()">
+      Próximo
+    </button>
+  </div>
+</div>

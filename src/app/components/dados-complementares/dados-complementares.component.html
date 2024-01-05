@@ -1,0 +1,48 @@
+<div class="main">
+  <div class="logo-container">
+    <img
+      src="../../../assets/imagens/logo.jpeg"
+      alt="Logo"
+      class="logo-image"
+    />
+  </div>
+  <div class="dados-title">
+    <h1>Por fim, nos informe alguns dados complementares</h1>
+  </div>
+  <div class="form-container">
+    <form class="dados-form">
+      <div class="form-group">
+        <label for="faturamento">Faturamento Mensal (Aproximado)</label>
+        <input
+          type="text"
+          id="faturamento"
+          name="faturamento"
+          required
+          prefix="R$ "
+          mask="separator.2"
+          thousandSeparator="."
+        />
+      </div>
+      <div class="form-group">
+        <label for="percentual">Percentual de Participação</label>
+        <input
+          type="text"
+          id="percentual"
+          name="percentual"
+          required
+          mask="099"
+          [suffix]="'%'"
+          [(ngModel)]="percentualModel"
+          (input)="validarPercentual($event)"
+        />
+      </div>
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" required />
+      </div>
+    </form>
+  </div>
+  <div class="next-container">
+    <button class="button-next" (click)="proximaTela()">Próximo</button>
+  </div>
+</div>
