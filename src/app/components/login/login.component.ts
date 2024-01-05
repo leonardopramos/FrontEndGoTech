@@ -37,6 +37,10 @@ export class LoginComponent implements OnInit {
             if (response) {
               console.log('Login bem-sucedido!');
               if (this.usuarios.length === 1) {
+                localStorage.setItem(
+                  'usuarioSelecionado',
+                  this.usuarios[0].nome
+                );
                 this.router.navigate(['/homepage']);
               } else {
                 this.router.navigate(['/user-selector']);

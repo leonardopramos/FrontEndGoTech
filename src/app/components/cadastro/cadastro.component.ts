@@ -75,7 +75,6 @@ export class CadastroComponent implements OnInit {
       ],
       senha: senha,
     };
-
     this.apiService.cadastrar(requestBody).subscribe((response) => {
       this.router.navigate(['/login']);
     });
