@@ -31,7 +31,6 @@ export class NomeComponent implements OnInit {
     this.cnpjService.armazenarDadosTemporarios({
       nomeCorreto: this.nomeSelecionado,
     });
-    console.log(this.cnpjService.retornarDadosTemporarios());
     this.router.navigate(['/cpf']);
   }
   formatarNome(nomeFormatado: string) {

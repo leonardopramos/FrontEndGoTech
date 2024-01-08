@@ -35,36 +35,31 @@ export class EnderecoComponent implements OnInit {
   }
 
   proximoPasso() {
-    const logradouro = this.logradouroModel;
     const numero = (document.getElementById('numero') as HTMLInputElement)
       .value;
-    const complemento = this.complementModel;
-    const bairro = this.neighborhoodModel;
 
-    const cidade = this.cityModel;
-    const estado = this.stateModel;
-    const cep = this.cepModel;
-    const pais = (document.getElementById('pais') as HTMLInputElement).value;
     const endereco = {
-      logradouro: logradouro,
+      logradouro: this.logradouroModel,
       numero: numero,
-      complemento: complemento,
-      bairro: bairro,
-      cidade: cidade,
-      estado: estado,
-      cep: cep,
-      pais: pais,
+      complemento: this.complementModel,
+      bairro: this.neighborhoodModel,
+      cidade: this.cityModel,
+      estado: this.stateModel,
+      cep: this.cepModel,
+      pais: (document.getElementById('pais') as HTMLInputElement).value,
     };
+
     this.cnpjService.armazenarDadosTemporarios({
       endereco: endereco,
     });
-    console.log(this.cnpjService.retornarDadosTemporarios());
+
     this.router.navigate(['/dados-complementares']);
   }
+
   preencherEnderecoPorCep(cep: string): void {
     if (cep.length === 8) {
       this.viaCepService.getEnderecoByCep(cep).subscribe((endereco: any) => {
-        if (endereco) {
+        if (endereco && endereco.cep) {
           this.cepModel = endereco.cep;
           this.logradouroModel = endereco.logradouro;
           this.neighborhoodModel = endereco.bairro;
@@ -75,11 +70,10 @@ export class EnderecoComponent implements OnInit {
       });
     }
   }
-  validarEstado(event: any): void {
-    let valorDigitado = event.target.value.toUpperCase();
 
-    if (valorDigitado.length > 2) {
-      valorDigitado = valorDigitado.slice(0, 2);
-    }
+  validarEstado(event: any): void {
+    const valorDigitado = event.target.value.toUpperCase();
+    this.stateModel =
+      valorDigitado.length > 2 ? valorDigitado.slice(0, 2) : valorDigitado;
   }
 }

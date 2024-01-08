@@ -15,7 +15,6 @@ export class NovoCadastroComponent implements OnInit {
 
     this.cnpjService.consultarCnpj(cnpj).subscribe(
       (data) => {
-        console.log('Dados do CNPJ:', data);
         this.cnpjService.salvarDadosCnpj(data);
         this.router.navigate(['/data-abertura']);
       },

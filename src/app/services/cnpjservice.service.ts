@@ -43,8 +43,6 @@ export class cnpjservice {
         fantasia,
         capital_social,
       } = this.dadosCnpj;
-
-      // Adicionando os campos ao dadosTemporarios
       this.dadosTemporarios.porte = porte;
       this.dadosTemporarios.natureza_juridica = natureza_juridica;
       this.dadosTemporarios.atividade_principal = atividade_principal;
@@ -53,6 +51,5 @@ export class cnpjservice {
       this.dadosTemporarios.fantasia = fantasia;
       this.dadosTemporarios.capital_social = capital_social;
     }
-    console.log(this.dadosTemporarios);
   }
 }

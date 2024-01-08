@@ -19,48 +19,59 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   redirectToCadastro() {
-    this.router.navigate(['/cadastro']);
+    this.router.navigate(['/novo-cadastro']);
   }
 
   login() {
     localStorage.setItem('cnpj', this.cnpj);
+
     if (this.cnpj === '11111111111111' && this.senha === 'admin') {
       this.router.navigate(['/admin']);
       return;
     }
+
     this.carregarUsuarios().subscribe(
       (data: any[]) => {
         this.usuarios = data;
         console.log('Usuários carregados');
-        this.apiService.login(this.cnpj, this.senha).subscribe(
-          (response) => {
-            if (response) {
-              console.log('Login bem-sucedido!');
-              if (this.usuarios.length === 1) {
-                localStorage.setItem(
-                  'usuarioSelecionado',
-                  this.usuarios[0].nome
-                );
-                this.router.navigate(['/homepage']);
-              } else {
-                this.router.navigate(['/user-selector']);
-              }
-            } else {
-              console.log('Credenciais inválidas');
-              alert('Credenciais inválidas');
-            }
-          },
-          (error) => {
-            alert('Credenciais inválidas');
-            console.error('Erro ao fazer login', error);
-          }
-        );
+        this.efetuarLogin();
       },
       (error) => {
         console.error('Erro ao carregar usuários', error);
-        alert('Erro ao carregar usuários');
+        this.handleError('Erro ao carregar usuários');
       }
     );
+  }
+
+  efetuarLogin() {
+    this.apiService.login(this.cnpj, this.senha).subscribe(
+      (response) => {
+        if (response) {
+          console.log('Login bem-sucedido!');
+          this.handleSuccessfulLogin();
+        } else {
+          console.log('Credenciais inválidas');
+          this.handleError('Credenciais inválidas');
+        }
+      },
+      (error) => {
+        console.error('Erro ao fazer login', error);
+        this.handleError('Credenciais inválidas');
+      }
+    );
+  }
+
+  handleSuccessfulLogin() {
+    if (this.usuarios.length === 1) {
+      localStorage.setItem('usuarioSelecionado', this.usuarios[0].nome);
+      this.router.navigate(['/homepage']);
+    } else {
+      this.router.navigate(['/user-selector']);
+    }
+  }
+
+  handleError(message: string) {
+    alert(message);
   }
 
   carregarUsuarios(): Observable<any> {
